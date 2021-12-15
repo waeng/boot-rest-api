@@ -1,0 +1,59 @@
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+spring:
+  profiles:
+    active: local
+  application:
+    name: waeng-api
+  datasource:
+    dynamic:
+      primary: waeng
+      datasource:
+        waeng:
+          url: jdbc:mysql://127.0.0.1:3306/waeng?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true&serverTimezone=GMT%2B8
+          username: root
+          password: root
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      INDENT_OUTPUT: true
+  mvc:
+    formcontent:
+      filter:
+        enabled: false
+    pathmatch:
+      matching-strategy:  ANT_PATH_MATCHER
+mybatis:
+  mapper-scan:
+    base-packages: waeng.bootrestapi.mapper
+mybatis-plus:
+  global-config:
+    banner: false
+  type-enums-package: waeng.bootrestapi.enums
+  type-handlers-package: waeng.bootrestapi.mybatis
+swagger:
+  title: ${spring.application.name} ????
+  base-package: waeng.bootrestapi.controller
+knife4j:
+  enable: true
+  setting:
+    enableFilterMultipartApis: true
+    enableDynamicParameter: true
+  documents:
+    - group: default
+      name: ????
+      locations: classpath:knife4j/*
+cors:
+  enabled: false
+  allowedOrigins: '*'
+access:
+  permission:
+    enabled: true
+rest-template:
+  connect-timeout-millis: 2000
+  read-timeout-millis: 8000
